@@ -46,6 +46,7 @@
     <Compile Include="CryptoCoin\ICoinBase.cs" />
     <Compile Include="CryptoCoin\Pair.cs" />
     <Compile Include="ExtException\BadSignException.cs" />
+    <Compile Include="ExtException\InvalidCredentialsException.cs" />
     <Compile Include="ExtException\InvalidMethodException.cs" />
     <Compile Include="ExtException\InvalidPairException.cs" />
     <Compile Include="ExtException\NotFound404Exception.cs" />
