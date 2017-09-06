@@ -61,17 +61,12 @@ namespace BitCo.IdSharp.HTTP
 
         public async Task<AccountInfoResponse> GetInfoAccountAsync(IBitCoIdRequest request)
         {
-            try
-            {
-                request.request.Headers.TryAddWithoutValidation("Key", _api_key);
-                request.request.Headers.TryAddWithoutValidation("Sign", CreateSign(request.request.Content.ReadAsStringAsync().Result));
-                var result = await client.SendAsync(request.request);
-                return JsonConvert.DeserializeObject<AccountInfoResponse>(result.Content.ReadAsStringAsync().Result);
-            }
-            catch (BadSignException)
-            {
-                throw new BadSignException("Bad Signature.");
-            }
+            request.request.Headers.TryAddWithoutValidation("Key", _api_key);
+            request.request.Headers.TryAddWithoutValidation("Sign", CreateSign(request.request.Content.ReadAsStringAsync().Result));
+            var result = await client.SendAsync(request.request);
+            var content = result.Content.ReadAsStringAsync().Result;
+            ValidatorResponse.Validate(content, ValidatorType.BadSignException, ValidatorType.InvalidCredentials);
+            return JsonConvert.DeserializeObject<AccountInfoResponse>(content);
         }
     }
 }

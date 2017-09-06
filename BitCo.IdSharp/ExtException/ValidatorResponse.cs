@@ -12,7 +12,7 @@ namespace BitCo.IdSharp.ExtException
         InvalidMethod = 2,
         NotFound404 = 3,
         InvalidCredentials =4,
-
+        BadSignException = 5,
     }
 
     public static class ValidatorResponse
@@ -34,9 +34,13 @@ namespace BitCo.IdSharp.ExtException
                 {
                     throw new NotFound404Exception("Request Page Not Found");
                 }
-                else if (response.Contains("Invalid credentials") && item == ValidatorType.NotFound404)
+                else if (response.Contains("Invalid credentials") && item == ValidatorType.InvalidCredentials)
                 {
                     throw new InvalidCredentialsException("Invalid credentials. API not found or session has expired.");
+                }
+                else if (response.Contains("sign") && item == ValidatorType.BadSignException)
+                {
+                    throw new InvalidCredentialsException("Bad Signature.");
                 }
             }
         }

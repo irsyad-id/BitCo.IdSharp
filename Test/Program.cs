@@ -24,7 +24,7 @@ namespace Test
             Console.WriteLine("Current Minimum Sell Market " + String.Format("{0:N0}", response.ticker.sell));
 
 
-            APIClient _client = new APIClient("MZDZ6ZMW-Z6MFWWME-DS0DDAJA-BNS8VONJ-LAO4IKT5", "11e88b3311eff9977211be590fc3256a4b7c5daf71f77e19d348a599198e82c1272d0e03910195c1");
+            APIClient _client = new APIClient("Your Public API", "Your Secret API");
             var temp = _client.GetInfoAccountAsync(new BitCoIdGetInfoRequest()).GetAwaiter().GetResult();
             Console.WriteLine("\n\nName " + temp.@return.name);
             Console.WriteLine("IDR Balance " + temp.@return.balance.idr);
